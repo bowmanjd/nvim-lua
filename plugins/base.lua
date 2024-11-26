@@ -75,6 +75,31 @@ return {
 			end, {
 				desc = "[S]earch for [T]ables",
 			})
+			vim.keymap.set("n", "<leader>sp", function()
+				builtin.find_files({
+					cwd = "~/devel/CargasEnergy/CargasEnergyDB/Schema Objects/Schemas/",
+					search_dirs = {
+						"CRM/Programmability/",
+						"API/Programmability/",
+						"diagnostic/Programmability/",
+						"Integration/Programmability/",
+						"mdo/Programmability/",
+						"dbo/Programmability/",
+						"DataConversion/Programmability/",
+						"Dashboard/Programmability/",
+					},
+					find_command = {
+						"fd",
+						"-i",
+						"--type",
+						"f",
+						"--color",
+						"never",
+					},
+				})
+			end, {
+				desc = "[S]earch for [P]rograms",
+			})
 
 			-- Slightly advanced example of overriding default behavior and theme
 			vim.keymap.set("n", "<leader>/", function()
