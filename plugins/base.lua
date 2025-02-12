@@ -4,6 +4,8 @@ return {
 		config = true,
 	},
 	{ "akinsho/toggleterm.nvim", version = "*", config = true },
+	{ "echasnovski/mini.surround", version = "*", config = true },
+	{ "numToStr/Comment.nvim", version = "*", config = true },
 	{
 		"lukas-reineke/indent-blankline.nvim",
 		main = "ibl",
@@ -107,7 +109,7 @@ return {
 			vim.keymap.set("n", "<leader>si", function()
 				builtin.live_grep({
 					cwd = (vim.fn.isdirectory("CargasEnergyDB") > 0 and "." or "~/devel/CargasEnergy/"),
-					glob_pattern = { 
+					glob_pattern = {
 						"**/Programmability/**",
 						"*.js",
 						"*.jsx",
