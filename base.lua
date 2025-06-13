@@ -7,6 +7,7 @@ vim.opt.mouse = "a"
 
 vim.opt.fileformat = "unix"
 vim.opt.fileformats = { "unix", "dos" }
+vim.opt.fixeol = false
 
 vim.opt.backup = false
 vim.opt.writebackup = true
@@ -59,3 +60,7 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 		vim.opt.fileformat = "unix"
 	end,
 })
+
+vim.keymap.set("n", "<leader>e", function()
+	vim.diagnostic.open_float()
+end, { desc = "[e] show line diagnostics" })
