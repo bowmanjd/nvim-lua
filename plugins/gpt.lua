@@ -24,7 +24,7 @@ return {
 		},
 		-- build = "make tiktoken", -- Only on MacOS or Linux
 		opts = {
-			model = "gpt-4.1",
+			model = "gpt-5-mini",
 		},
 	},
 
@@ -50,12 +50,12 @@ return {
 		},
 		opts = {
 			adapters = {
-				claude_copilot = function()
+				gpt5mini_copilot = function()
 					return require("codecompanion.adapters").extend("copilot", {
-						name = "claude_copilot", -- Unique adapter name
+						name = "gpt5mini_copilot", -- Unique adapter name
 						schema = {
 							model = {
-								default = "gpt-4.1",
+								default = "gpt-5-mini",
 							},
 						},
 					})
@@ -69,97 +69,25 @@ return {
 						},
 						schema = {
 							model = {
-								default = "google/gemini-2.5-pro-preview-03-25",
+								default = "qwen/qwen3-coder",
 							},
 						},
 					})
 				end,
 			},
 			strategies = {
-				chat = { adapter = "claude_copilot" },
-				inline = { adapter = "claude_copilot" },
-			},
-		},
-	},
-	{
-		"yetone/avante.nvim",
-		event = "VeryLazy",
-		lazy = false,
-		version = false,
-		keys = {
-			{
-				"<leader>ae",
-				"<Cmd>AvanteClear<cr>",
-				mode = "n",
-				desc = "Clear Avante chat history",
-			},
-		},
-		opts = {
-			provider = "copilot",
-			auto_suggestions_provider = nil, -- Set to nil to disable auto suggestions
-			suggestion = {
-				enabled = false, -- Disable suggestions completely
-				debounce = 2000,
-				throttle = 2000,
-			},
-			providers = {
-				copilot = {
-					model = "gpt-4.1",
-					extra_request_body = {
-						max_tokens = 128000,
+				chat = {
+					adapter = {
+						name = "copilot",
+						model = "gpt-5-mini",
 					},
 				},
-				openrouter = {
-					__inherited_from = "openai",
-					endpoint = "https://openrouter.ai/api/v1",
-					api_key_name = "OPENROUTER_API_KEY",
-					model = "google/gemini-2.5-pro-preview-03-25",
-				},
-			},
-		},
-		build = function()
-			-- conditionally use the correct build system for the current OS
-			if vim.fn.has("win32") == 1 then
-				return "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
-			else
-				return "make"
-			end
-		end,
-		dependencies = {
-			"stevearc/dressing.nvim",
-			"nvim-lua/plenary.nvim",
-			"MunifTanjim/nui.nvim",
-			--- The below dependencies are optional,
-			"echasnovski/mini.pick", -- for file_selector provider mini.pick
-			"nvim-telescope/telescope.nvim", -- for file_selector provider telescope
-			"hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
-			"ibhagwan/fzf-lua", -- for file_selector provider fzf
-			"nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
-			"zbirenbaum/copilot.lua", -- for providers='copilot'
-			{
-				-- support for image pasting
-				"HakonHarnes/img-clip.nvim",
-				event = "VeryLazy",
-				opts = {
-					-- recommended settings
-					default = {
-						embed_image_as_base64 = false,
-						prompt_for_file_name = false,
-						drag_and_drop = {
-							insert_mode = true,
-						},
-						-- required for Windows users
-						use_absolute_path = true,
+				inline = {
+					adapter = {
+						name = "copilot",
+						model = "gpt-4.1",
 					},
 				},
-			},
-			{
-				-- Make sure to set this up properly if you have lazy=true
-				"MeanderingProgrammer/render-markdown.nvim",
-				opts = {
-					file_types = { "markdown", "Avante" },
-				},
-				ft = { "markdown", "Avante" },
 			},
 		},
 	},

@@ -23,7 +23,9 @@ return {
 			lint.linters_by_ft = lint.linters_by_ft or {}
 			lint.linters_by_ft["markdown"] = { "markdownlint" }
 			lint.linters_by_ft["sql"] = { "sqlfluff" }
+			lint.linters_by_ft["javascriptreact"] = { "eslint" }
 			lint.linters_by_ft["javascript"] = { "biomejs" }
+			lint.linters_by_ft["typescript"] = { "biomejs" }
 
 			lint.linters.sqlfluff.stdin = true
 			lint.linters.sqlfluff.args = {
@@ -31,7 +33,19 @@ return {
 				"--format=json",
 				--"--ignore-local-config",
 				"--dialect",
-				"tsql",
+				function()
+					-- This function is evaluated each time lint runs
+					local d = vim.b.sql_dialect or "tsql"
+					for i = 1, math.min(20, vim.fn.line("$")) do
+						local line = vim.fn.getline(i)
+						local found = line:match("%-%-%s*dialect:%s*(%w+)")
+						if found then
+							d = found
+							break
+						end
+					end
+					return d
+				end,
 				"--config",
 				home .. "/devel/sql/.sqlfluff",
 				"-",
