@@ -30,6 +30,8 @@ return {
 			javascript = { "biome", "prettierd", "prettier", stop_after_first = true },
 			typescript = { "biome", "prettierd", "prettier", stop_after_first = true },
 			javascriptreact = { "prettierd", "prettier", stop_after_first = true },
+			json = { "biome", "prettierd", "prettier", stop_after_first = true },
+			jsonc = { "biome", "prettierd", "prettier", stop_after_first = true },
 			sql = { "sqlfluff" },
 			xml = { "xmllint" },
 		},

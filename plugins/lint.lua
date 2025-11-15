@@ -26,6 +26,8 @@ return {
 			lint.linters_by_ft["javascriptreact"] = { "eslint" }
 			lint.linters_by_ft["javascript"] = { "biomejs" }
 			lint.linters_by_ft["typescript"] = { "biomejs" }
+			lint.linters_by_ft["json"] = { "biomejs" }
+			lint.linters_by_ft["jsonc"] = { "biomejs" }
 
 			lint.linters.sqlfluff.stdin = true
 			lint.linters.sqlfluff.args = {
