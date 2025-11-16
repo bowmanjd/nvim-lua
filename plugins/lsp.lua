@@ -15,19 +15,20 @@ return {
 			"nvim-telescope/telescope.nvim",
 		},
 		config = function(_, opts)
-			local lspconfig = require("lspconfig")
+			-- local lspconfig = require("lspconfig")
 
 			require("mason").setup()
 			require("mason-lspconfig").setup({
 				ensure_installed = { "powershell_es" },
 			})
 
-			local lspconfig_defaults = lspconfig.util.default_config
-			lspconfig_defaults.capabilities = vim.tbl_deep_extend(
-				"force",
-				lspconfig_defaults.capabilities,
-				require("cmp_nvim_lsp").default_capabilities()
-			)
+			-- local lspconfig_defaults = lspconfig.util.default_config
+			-- lspconfig_defaults.capabilities = vim.tbl_deep_extend(
+			-- 	"force",
+			-- 	lspconfig_defaults.capabilities,
+			-- 	require("cmp_nvim_lsp").default_capabilities()
+			-- )
+			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 			vim.api.nvim_create_autocmd("LspAttach", {
 				desc = "LSP actions",
@@ -75,14 +76,34 @@ return {
 				end,
 			})
 
-			lspconfig.bashls.setup({})
-			lspconfig.biome.setup({})
-			lspconfig.powershell_es.setup({
+			vim.lsp.config("bashls", {
+				capabilities = capabilities,
+			})
+			vim.lsp.enable("bashls")
+
+			vim.lsp.config("biome", {
+				capabilities = capabilities,
+			})
+			vim.lsp.enable("biome")
+
+			vim.lsp.config('powershell_es', {
+				capabilities = capabilities,
 				bundle_path = vim.fn.stdpath("data") .. "/mason/packages/powershell-editor-services",
 			})
-			lspconfig.emmet_language_server.setup({})
-			lspconfig.pyright.setup({})
-			lspconfig.gopls.setup({
+			vim.lsp.enable("powershell_es")
+
+			vim.lsp.config("emmet_language_server", {
+				capabilities = capabilities,
+			})
+			vim.lsp.enable("emmet_language_server")
+
+			vim.lsp.config("pyright", {
+				capabilities = capabilities,
+			})
+			vim.lsp.enable("pyright")
+
+			vim.lsp.config('gopls', {
+				capabilities = capabilities,
 				settings = {
 					gopls = {
 						analyses = {
@@ -93,20 +114,41 @@ return {
 					},
 				},
 			})
-			lspconfig.golangci_lint_ls.setup({})
-			lspconfig.rust_analyzer.setup({
+			vim.lsp.enable("gopls")
+
+			vim.lsp.config('golangci_lint_ls', {
+				capabilities = capabilities,
+			})
+			vim.lsp.enable("golangci_lint_ls")
+
+			vim.lsp.config('rust_analyzer', {
+				capabilities = capabilities,
 				settings = {
 					checkOnSave = {
 						command = "clippy",
 					},
 				},
 			})
-			lspconfig.jsonls.setup({})
-			lspconfig.html.setup({})
-			lspconfig.yamlls.setup({})
-			lspconfig.dockerls.setup({})
-			--lspconfig.quick_lint_js.setup({})
-			lspconfig.omnisharp.setup({
+			vim.lsp.enable("rust_analyzer")
+
+			-- vim.lsp.enable("jsonls")
+			vim.lsp.config("html", {
+				capabilities = capabilities,
+			})
+			vim.lsp.enable("html")
+
+			vim.lsp.config("yamlls", {
+				capabilities = capabilities,
+			})
+			vim.lsp.enable("yamlls")
+
+			vim.lsp.config("dockerls", {
+				capabilities = capabilities,
+			})
+			vim.lsp.enable("dockerls")
+
+			vim.lsp.config('omnisharp', {
+				capabilities = capabilities,
 				cmd = omnisharpCmd,
 
 				settings = {
