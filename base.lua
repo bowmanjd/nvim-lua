@@ -29,7 +29,7 @@ vim.opt.signcolumn = "yes"
 vim.opt.background = "dark"
 vim.opt.termguicolors = true
 
-if vim.fn.executable("win32yank") == 1 and os.getenv("SSH_CONNECTION") == nil and os.getenv("TMUX") == nil then
+if vim.fn.executable("win32yank") == 1 and os.getenv("SSH_CONNECTION") == nil then
 	vim.g.clipboard = {
 		name = "win32yank",
 		copy = {
@@ -37,8 +37,8 @@ if vim.fn.executable("win32yank") == 1 and os.getenv("SSH_CONNECTION") == nil an
 			["*"] = "win32yank -i",
 		},
 		paste = {
-			["+"] = "win32yank -o",
-			["*"] = "win32yank -o",
+			["+"] = "win32yank -o --lf",
+			["*"] = "win32yank -o --lf",
 		},
 		cache_enabled = 0,
 	}
