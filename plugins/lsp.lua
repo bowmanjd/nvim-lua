@@ -86,6 +86,11 @@ return {
 			})
 			vim.lsp.enable("biome")
 
+			vim.lsp.config("zls", {
+				capabilities = capabilities,
+			})
+			vim.lsp.enable("biome")
+
 			vim.lsp.config('powershell_es', {
 				capabilities = capabilities,
 				bundle_path = vim.fn.stdpath("data") .. "/mason/packages/powershell-editor-services",
