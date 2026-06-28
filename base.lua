@@ -91,3 +91,5 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 vim.keymap.set("n", "<leader>e", function()
 	vim.diagnostic.open_float()
 end, { desc = "[e] show line diagnostics" })
+
+require("age")
