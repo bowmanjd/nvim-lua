@@ -9,25 +9,10 @@ return {
 		opts = {},
 		dependencies = {
 			"hrsh7th/cmp-nvim-lsp",
-			"williamboman/mason.nvim",
-			"williamboman/mason-lspconfig.nvim",
 			"Hoffs/omnisharp-extended-lsp.nvim",
 			"nvim-telescope/telescope.nvim",
 		},
 		config = function(_, opts)
-			-- local lspconfig = require("lspconfig")
-
-			require("mason").setup()
-			require("mason-lspconfig").setup({
-				ensure_installed = { "powershell_es" },
-			})
-
-			-- local lspconfig_defaults = lspconfig.util.default_config
-			-- lspconfig_defaults.capabilities = vim.tbl_deep_extend(
-			-- 	"force",
-			-- 	lspconfig_defaults.capabilities,
-			-- 	require("cmp_nvim_lsp").default_capabilities()
-			-- )
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 			vim.api.nvim_create_autocmd("LspAttach", {
@@ -89,13 +74,7 @@ return {
 			vim.lsp.config("zls", {
 				capabilities = capabilities,
 			})
-			vim.lsp.enable("biome")
-
-			vim.lsp.config('powershell_es', {
-				capabilities = capabilities,
-				bundle_path = vim.fn.stdpath("data") .. "/mason/packages/powershell-editor-services",
-			})
-			vim.lsp.enable("powershell_es")
+			vim.lsp.enable("zls")
 
 			vim.lsp.config("emmet_language_server", {
 				capabilities = capabilities,

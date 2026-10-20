@@ -15,7 +15,7 @@ return {
 				function()
 					vim.diagnostic.enable(not vim.diagnostic.is_enabled())
 				end,
-				desc = "Lint buffer",
+				desc = "Toggle diagnostics",
 			},
 		},
 		config = function()
@@ -53,15 +53,12 @@ return {
 				"-",
 			}
 
-			-- Create autocommand which carries out the actual linting
-			-- on the specified events.
+			-- Run linter on file open and after save to prevent typing lag
 			local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
-			vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
+			vim.api.nvim_create_autocmd({ "BufReadPost", "BufWritePost" }, {
 				group = lint_augroup,
 				callback = function()
-					-- Only run the linter in buffers that you can modify in order to
-					-- avoid superfluous noise, notably within the handy LSP pop-ups that
-					-- describe the hovered symbol using Markdown.
+					-- Only run the linter in modifiable buffers
 					if vim.opt_local.modifiable:get() then
 						lint.try_lint()
 					end
