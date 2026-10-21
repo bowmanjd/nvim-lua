@@ -16,9 +16,11 @@ lint.linters.sqruff.args = {
 	"-",
 }
 
--- Run linter on file open and after save to prevent typing lag
+-- Run linter on file open and after save to prevent typing lag.
+-- FileType, not BufReadPost: this file loads before filetype detection is set up,
+-- so on BufReadPost the filetype would still be empty.
 local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
-vim.api.nvim_create_autocmd({ "BufReadPost", "BufWritePost" }, {
+vim.api.nvim_create_autocmd({ "FileType", "BufWritePost" }, {
 	group = lint_augroup,
 	callback = function()
 		-- Only run the linter in modifiable buffers
