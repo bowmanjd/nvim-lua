@@ -4,6 +4,11 @@ local function gh(repo)
 	return "https://github.com/" .. repo
 end
 
+-- tree-sitter defaults to MSVC (cl.exe) on Windows; use gcc (scoop) for :TSInstall instead
+if not vim.env.CC and vim.fn.executable("gcc") == 1 then
+	vim.env.CC = "gcc"
+end
+
 vim.pack.add({
 	{ src = gh("catppuccin/nvim"), name = "catppuccin" },
 	gh("hrsh7th/cmp-buffer"),
