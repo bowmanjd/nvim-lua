@@ -32,7 +32,7 @@ return {
 			javascriptreact = { "prettierd", "prettier", stop_after_first = true },
 			json = { "biome", "prettierd", "prettier", stop_after_first = true },
 			jsonc = { "biome", "prettierd", "prettier", stop_after_first = true },
-			sql = { "sqlfluff" },
+			sql = { "sqruff" },
 			xml = { "xmllint" },
 		},
 		default_format_opts = {
@@ -41,28 +41,13 @@ return {
 			timeout_ms = 60000,
 		},
 		formatters = {
-			sqlfluff = {
-				require_cwd = false,
-				quiet = true,
+			sqruff = {
+				stdin = true,
+				-- sqruff exits 1 when unfixable issues remain, but still prints the fixed SQL
 				exit_codes = { 0, 1 },
-				args = function(ctx)
-					local dialect = vim.b.sql_dialect or "tsql"
-					for i = 1, math.min(20, vim.fn.line("$")) do
-						local line = vim.fn.getline(i)
-						local found = line:match("%-%-%s*dialect:%s*(%w+)")
-						if found then
-							dialect = found
-							break
-						end
-					end
-					return {
-						"fix",
-						"--dialect",
-						dialect,
-						"--config",
-						home .. "/devel/sql/.sqlfluff",
-						"-",
-					}
+				args = function()
+					local sql = require("sql")
+					return { "fix", "--dialect", sql.dialect(), "--config", sql.config, "-" }
 				end,
 			},
 		},
