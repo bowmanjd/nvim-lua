@@ -1,15 +1,5 @@
-return {
-	{
-		"nvim-lualine/lualine.nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-		opts = {
-			tabline = {
-				lualine_a = {
-					{
-						"buffers",
-					},
-				},
-			},
-		},
+require("lualine").setup({
+	tabline = {
+		lualine_a = { "buffers" },
 	},
-}
+})
