@@ -20,10 +20,10 @@ return {
 		formatters_by_ft = {
 			cs = { "csharpier" },
 			css = { "stylelint" },
-			html = { "prettier", "djlint", "superhtml" },
+			html = { "prettierd", "prettier", "djlint", stop_after_first = true },
 			lua = { "stylua" },
 			nix = { "alejandra" },
-			python = { "isort", "black" },
+			python = { "ruff_organize_imports", "ruff_format" },
 			rust = { "rustfmt" },
 			-- You can customize some of the format options for the filetype (:help conform.format)
 			-- Conform will run the first available formatter

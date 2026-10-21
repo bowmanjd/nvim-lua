@@ -23,11 +23,8 @@ return {
 			lint.linters_by_ft = lint.linters_by_ft or {}
 			lint.linters_by_ft["markdown"] = { "markdownlint" }
 			lint.linters_by_ft["sql"] = { "sqruff" }
+			-- js/ts/json diagnostics come from the biome LSP
 			lint.linters_by_ft["javascriptreact"] = { "eslint" }
-			lint.linters_by_ft["javascript"] = { "biomejs" }
-			lint.linters_by_ft["typescript"] = { "biomejs" }
-			lint.linters_by_ft["json"] = { "biomejs" }
-			lint.linters_by_ft["jsonc"] = { "biomejs" }
 
 			local sql = require("sql")
 			lint.linters.sqruff.args = {

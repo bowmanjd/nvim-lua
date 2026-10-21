@@ -1,10 +1,5 @@
 return {
 	{
-		"pmizio/typescript-tools.nvim",
-		dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-		opts = {},
-	},
-	{
 		"neovim/nvim-lspconfig",
 		opts = {},
 		dependencies = {
@@ -32,7 +27,7 @@ return {
 					vim.keymap.set({ "n", "x" }, "<F3>", "<cmd>lua vim.lsp.buf.format({async = true})<cr>", opts)
 					vim.keymap.set("n", "<F4>", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts)
 
-					if vim.api.nvim_buf_get_option(event.buf or 0, "filetype") == "cs" then
+					if vim.bo[event.buf].filetype == "cs" then
 						vim.keymap.set(
 							"n",
 							"gr",
@@ -86,7 +81,7 @@ return {
 			})
 			vim.lsp.enable("pyright")
 
-			vim.lsp.config('gopls', {
+			vim.lsp.config("gopls", {
 				capabilities = capabilities,
 				settings = {
 					gopls = {
@@ -100,16 +95,13 @@ return {
 			})
 			vim.lsp.enable("gopls")
 
-			vim.lsp.config('golangci_lint_ls', {
-				capabilities = capabilities,
-			})
-			vim.lsp.enable("golangci_lint_ls")
-
-			vim.lsp.config('rust_analyzer', {
+			vim.lsp.config("rust_analyzer", {
 				capabilities = capabilities,
 				settings = {
-					checkOnSave = {
-						command = "clippy",
+					["rust-analyzer"] = {
+						check = {
+							command = "clippy",
+						},
 					},
 				},
 			})
@@ -131,9 +123,8 @@ return {
 			})
 			vim.lsp.enable("dockerls")
 
-			vim.lsp.config('omnisharp', {
+			vim.lsp.config("omnisharp", {
 				capabilities = capabilities,
-				cmd = omnisharpCmd,
 
 				settings = {
 					FormattingOptions = {
@@ -174,6 +165,7 @@ return {
 					},
 				},
 			})
+			vim.lsp.enable("omnisharp")
 		end,
 	},
 }

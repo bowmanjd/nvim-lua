@@ -59,32 +59,32 @@ end
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 	pattern = { "*.md" },
 	callback = function()
-		vim.opt.spell = true
-		vim.opt.spelllang = "en_us"
-		vim.opt.filetype = "markdown"
-		vim.opt.formatoptions = "l"
-		vim.opt.linebreak = true
-		vim.opt.wrap = true
-		vim.opt.textwidth = 0
-		vim.opt.wrapmargin = 0
-		vim.opt.list = false
+		vim.bo.filetype = "markdown"
+		vim.opt_local.spell = true
+		vim.opt_local.spelllang = "en_us"
+		vim.opt_local.formatoptions = "l"
+		vim.opt_local.linebreak = true
+		vim.opt_local.wrap = true
+		vim.opt_local.textwidth = 0
+		vim.opt_local.wrapmargin = 0
+		vim.opt_local.list = false
 	end,
 })
 
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 	pattern = { "ssh_config", "*/.ssh/config.d/*" },
 	callback = function()
-		vim.opt.filetype = "sshconfig"
+		vim.bo.filetype = "sshconfig"
 	end,
 })
 
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 	pattern = { "*.sql" },
 	callback = function()
-		vim.opt.shiftwidth = 4
-		vim.opt.tabstop = 4
-		vim.opt.expandtab = true
-		vim.opt.fileformat = "unix"
+		vim.opt_local.shiftwidth = 4
+		vim.opt_local.tabstop = 4
+		vim.opt_local.expandtab = true
+		vim.opt_local.fileformat = "unix"
 	end,
 })
 
